@@ -8,8 +8,11 @@
 public class Deck
 {
    
-   // Public static class constants.
-   public final int MAX_CARDS;
+   // The maximum amount of cards allowed in the deck (6 * 52)
+   public final int MAX_CARDS = 312;
+   
+   // The valid card values for a deck.
+   public final char[] VALID_CARDS = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
    
    // Private static member data.
    static Card[] masterPack;
@@ -25,7 +28,36 @@ public class Deck
     */
    public Deck(int numPacks)
    {
-      return null;
+      // Calculate the total number of cards in the deck based on the number of packs used.
+      int totalCards = numPacks * 52;
+      
+      // Only allow a valid number of cards in the deck.
+      if(totalCards > MAX_CARDS || totalCards < 1)
+      {
+         System.out.println("A deck cannot contain more than " + MAX_CARDS + "  or less than 1 cards.");
+         return;
+      }
+      
+      // Initialize the card array with the total amount of cards.
+      cards = new Card[totalCards];
+      
+      // Create a card of each suit and value combination per pack and add it to the deck.
+      for(int i = 0; i < numPacks; i++)
+      {
+         for(int s = 0; s < Card.Suit.values().length; s++)
+         {
+            Card.Suit suit = Card.Suit.values()[s];
+            
+            for(int v = 0; v < VALID_CARDS.length; v++)
+            {
+               char value = VALID_CARDS[v];
+               cards[i + s + v] = new Card(value, suit);
+            }
+         }
+      }
+      
+      System.out.println("A deck of " + totalCards + " cards has been created.");
+      return;
    }
    
    
@@ -68,5 +100,9 @@ public class Deck
        * it has already built masterPack[] in a previous invocation.
        */
    }
+   public static void main(String[] args) {
+      Deck deck = new Deck(5);
+   }
    
 }
+
