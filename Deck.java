@@ -28,6 +28,7 @@ public class Deck
     */
    public Deck(int numPacks)
    {
+      
       // Calculate the total number of cards in the deck based on the number of packs used.
       int totalCards = numPacks * 52;
       
@@ -38,9 +39,26 @@ public class Deck
          return;
       }
       
-      // Initialize the card array with the total amount of cards.
-      cards = new Card[totalCards];
+      // Assign default values.
+      this.numPacks = numPacks;
+      this.topCard = 0;
+      cards = new Card[numPacks * 52];
       
+      // Initialize the card array with the total amount of cards.
+      init(numPacks);
+      
+      System.out.println("A deck of " + totalCards + " cards has been created.");
+      return;
+   }
+
+   public Deck()
+   {
+      Deck deck = new Deck(1);
+      return;
+   }
+   
+   public void init(int numPacks)
+   {
       // Create a card of each suit and value combination per pack and add it to the deck.
       for(int i = 0; i < numPacks; i++)
       {
@@ -55,11 +73,7 @@ public class Deck
             }
          }
       }
-      
-      System.out.println("A deck of " + totalCards + " cards has been created.");
-      return;
    }
-   
    
    // Mixes up the cards with the help of the standard random number generator.
    public void shuffle()
@@ -101,7 +115,7 @@ public class Deck
        */
    }
    public static void main(String[] args) {
-      Deck deck = new Deck(5);
+      Deck deck = new Deck();
    }
    
 }
