@@ -5,6 +5,8 @@
  * @author Hunter Mason, Jake McGhee, Mac Dousias, Pavlos Papadonikolakis
  * 
  */
+import java.lang.Math;
+
 public class Deck
 {
    
@@ -104,7 +106,7 @@ public class Deck
             cards[i*52 + s*13 + 12] = new Card('K', suit);
          }
       }
-      
+
       for(Card c : cards)
       {
          System.out.println(c.toString());
@@ -114,7 +116,18 @@ public class Deck
    // Mixes up the cards with the help of the standard random number generator.
    public void shuffle()
    {
-      
+      for(int i = 0; i < cards.length; i++)
+      {
+         // Get a random index in the deck.
+         int randomIndex = (int)(Math.random()*cards.length);
+         
+         // Make a copy of the current card.
+         Card temp = cards[i];
+         
+         // Swap the current and the card at the random index.
+         cards[i] = cards[randomIndex];
+         cards[randomIndex] = temp;
+      }
    }
    
    // Returns and removes the card in the top occupied position of cards[].
