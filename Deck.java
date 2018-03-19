@@ -56,7 +56,29 @@ public class Deck
       Deck deck = new Deck(1);
       return;
    }
+   /*
+   public void init(int numPacks)
+   {
+      // Create a card of each suit and value combination per pack and add it to the deck.
+      for(int i = 0; i < numPacks; i++)
+      {
+         for(int s = 0; s < Card.Suit.values().length; s++)
+         {
+            // Get the correct suit.
+            Card.Suit suit = Card.Suit.values()[s];
+            
+            for(int v = 0; v < VALID_CARDS.length; v++)
+            {
+               // Get the correct value.
+               char value = VALID_CARDS[v];
+               cards[i + s + v] = new Card(value, suit);
+            }
+         }
+      }
+   }
+   */
    
+   // An init method that follows the assignment specs and doesn't use VALID_CARDS.
    public void init(int numPacks)
    {
       // Create a card of each suit and value combination per pack and add it to the deck.
@@ -66,11 +88,20 @@ public class Deck
          {
             Card.Suit suit = Card.Suit.values()[s];
             
-            for(int v = 0; v < VALID_CARDS.length; v++)
-            {
-               char value = VALID_CARDS[v];
-               cards[i + s + v] = new Card(value, suit);
-            }
+            // Add cards of each value to the deck.
+            cards[i + s] = new Card('A', suit);
+            cards[i + s + 1] = new Card('2', suit);
+            cards[i + s + 2] = new Card('3', suit);
+            cards[i + s + 3] = new Card('4', suit);
+            cards[i + s + 4] = new Card('5', suit);
+            cards[i + s + 5] = new Card('6', suit);
+            cards[i + s + 6] = new Card('7', suit);
+            cards[i + s + 7] = new Card('8', suit);
+            cards[i + s + 8] = new Card('9', suit);
+            cards[i + s + 9] = new Card('T', suit);
+            cards[i + s + 10] = new Card('J', suit);
+            cards[i + s + 11] = new Card('Q', suit);
+            cards[i + s + 12] = new Card('K', suit);
          }
       }
    }
