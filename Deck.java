@@ -89,20 +89,25 @@ public class Deck
             Card.Suit suit = Card.Suit.values()[s];
             
             // Add cards of each value to the deck.
-            cards[i + s] = new Card('A', suit);
-            cards[i + s + 1] = new Card('2', suit);
-            cards[i + s + 2] = new Card('3', suit);
-            cards[i + s + 3] = new Card('4', suit);
-            cards[i + s + 4] = new Card('5', suit);
-            cards[i + s + 5] = new Card('6', suit);
-            cards[i + s + 6] = new Card('7', suit);
-            cards[i + s + 7] = new Card('8', suit);
-            cards[i + s + 8] = new Card('9', suit);
-            cards[i + s + 9] = new Card('T', suit);
-            cards[i + s + 10] = new Card('J', suit);
-            cards[i + s + 11] = new Card('Q', suit);
-            cards[i + s + 12] = new Card('K', suit);
+            cards[i*52 + s*13    ] = new Card('A', suit);
+            cards[i*52 + s*13 + 1] = new Card('2', suit);
+            cards[i*52 + s*13 + 2] = new Card('3', suit);
+            cards[i*52 + s*13 + 3] = new Card('4', suit);
+            cards[i*52 + s*13 + 4] = new Card('5', suit);
+            cards[i*52 + s*13 + 5] = new Card('6', suit);
+            cards[i*52 + s*13 + 6] = new Card('7', suit);
+            cards[i*52 + s*13 + 7] = new Card('8', suit);
+            cards[i*52 + s*13 + 8] = new Card('9', suit);
+            cards[i*52 + s*13 + 9] = new Card('T', suit);
+            cards[i*52 + s*13 + 10] = new Card('J', suit);
+            cards[i*52 + s*13 + 11] = new Card('Q', suit);
+            cards[i*52 + s*13 + 12] = new Card('K', suit);
          }
+      }
+      
+      for(Card c : cards)
+      {
+         System.out.println(c.toString());
       }
    }
    
@@ -146,7 +151,7 @@ public class Deck
        */
    }
    public static void main(String[] args) {
-      Deck deck = new Deck();
+      Deck deck = new Deck(2);
    }
    
 }
