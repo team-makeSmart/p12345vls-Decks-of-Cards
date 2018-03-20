@@ -1,20 +1,25 @@
+
 /**
  * The Class Card
- * @author Hunter Mason, Jake McGhee, Mac Doussias, Pavlos Papadonikolakis
  * CLASS CST338
  * Assignment 3, Module 3
+ * @author Hunter Mason, Jake McGhee, Mac Doussias, Pavlos Papadonikolakis
  */
 public class Card 
 {
-    
+      
+   /** Constant array of valid card values acceptable for program */ 
+   public static final char[] VALID_CARD_VALUES = {'2', '3', '4', 
+      '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};      
+      
    /**
     * Enumerated Suit values
     */
    public enum Suit 
    {   
-      clubs, diamonds, hearts, spades
-   }
-    
+      CLUBS, DIAMONDS, HEARTS, SPADES
+   } 
+
    /** Card value (e.g. 1,2,3,..., 9, T, J, K Q, A) */
    private char value;
    
@@ -33,9 +38,9 @@ public class Card
    public static void main(String[] args) 
    {
       //Create card objects for testing
-      Card card1 = new Card('A', Suit.spades);
-      Card card2 = new Card('s', Suit.spades);
-      Card card3 = new Card('J', Suit.clubs);
+      Card card1 = new Card('A', Suit.SPADES);
+      Card card2 = new Card('s', Suit.SPADES);
+      Card card3 = new Card('J', Suit.CLUBS);
       
       //Check if valid by looking at console output
       System.out.println(card1.toString());
@@ -46,9 +51,9 @@ public class Card
       System.out.println();
        
       //Create card objects for testing
-      Card card4 = new Card('d', Suit.spades);
-      Card card5 = new Card('Q', Suit.spades);
-      Card card6 = new Card('J', Suit.clubs);
+      Card card4 = new Card('d', Suit.SPADES);
+      Card card5 = new Card('Q', Suit.SPADES);
+      Card card6 = new Card('J', Suit.CLUBS);
 
       //Check if valid by looking at console output
       System.out.println(card4.toString());
@@ -63,7 +68,7 @@ public class Card
    public Card() 
    {
       this.value = 'A';
-      this.suit = Suit.spades;
+      this.suit = Suit.SPADES;
    }
     
    /**
@@ -92,13 +97,13 @@ public class Card
          String returnValue = String.valueOf(getValue());
         
          //Concatenate returnValue with a string relating to suit
-         if (suit == Suit.spades)
+         if (suit == Suit.SPADES)
             returnValue += " of Spades";
-         else if (suit == Suit.hearts)
+         else if (suit == Suit.HEARTS)
             returnValue += " of Hearts";
-         else if (suit == Suit.diamonds)
+         else if (suit == Suit.DIAMONDS)
             returnValue += " of Diamonds";
-         else if (suit == Suit.clubs)
+         else if (suit == Suit.CLUBS)
             returnValue += " of Clubs";
          
          return returnValue;
@@ -178,14 +183,18 @@ public class Card
     * Checks if is the values entered by the user are valid.
     * @param value the value
     * @param suit the suit
-    * @return true, if is valid
+    * @return true, if all values are valid
     */
    private boolean isValid(char value, Suit suit) 
    {
-      return (value == 'A' || value == 'K' || value == 'Q' || value == 'J' || 
-         value == 'T' || (value >= '2' && value <= '9')) && (suit == 
-         Suit.clubs || suit == Suit.diamonds || suit == Suit.hearts || 
-         suit == Suit.spades);
+     for(char val : VALID_CARD_VALUES) 
+     {
+        if(value == val) 
+        {
+           return true; //The value argument found in VALID_CARD_VALUES array
+        }        
+     }
+     return false; // The value argument was not found  
    }
    
 }
