@@ -1,14 +1,16 @@
+/**
+ * The Class Deck
+ * @author Hunter Mason, Jake McGhee, Mac Doussias, Pavlos Papadonikolakis
+ * CLASS CST338
+ * Assignment 3, Module 3
+ */
+
 import java.util.Scanner;
 import java.util.UUID;
 
-/**
- * The Class Deck.
- *
- * @author Hunter Mason, Jake McGhee, Mac Dousias, Pavlos Papadonikolakis
- * CST 338
- */
 public class Deck
 {
+   
    public final static int MAX_CARDS = 52;
    private static Card[] masterPack = new Card[MAX_CARDS];
 
@@ -18,7 +20,6 @@ public class Deck
 
    public Deck(int numPacks)
    {
-
       allocateMasterPack();
       init(numPacks);
    }
@@ -52,9 +53,7 @@ public class Deck
             masterPack[13 * k + 10] = new Card('J', suit);
             masterPack[13 * k + 11] = new Card('Q', suit);
             masterPack[13 * k + 12] = new Card('K', suit);
-
          }
-
       }
       // System.out.println("\n----------------masterpack-------------");
       // for (Card c : masterPack) {
@@ -65,16 +64,16 @@ public class Deck
 
    public void init(int numPacks)
    {
-      // Allocate card array with the total amount of cards.
+      // Allocate card array with the total amount of cards
       cards = new Card[numPacks * 52];
 
       int k = 0, pack = 0;
 
-      // Only allow a valid number of cards in the deck.
+      // Only allow a valid number of cards in the deck
       if (numPacks < 1 || numPacks > 6)
          numPacks = 1;
 
-      // Add cards to the array by making copies from the master pack.
+      // Add cards to the array by making copies from the master pack
       for (pack = 0; pack < numPacks; pack++)
       {
          for (k = 0; k < 52; k++)
@@ -87,20 +86,19 @@ public class Deck
       // for (Card c : cards) {
       // System.out.println(c);
       // }
-
    }
 
    public void shuffle()
    {
       for (int i = 0; i < cards.length; i++)
       {
-         // Get a random index in the deck.
+         // Get a random index in the deck
          int randomIndex = (int) (Math.random() * cards.length);
 
-         // Make a copy of the current card.
+         // Make a copy of the current card
          Card temp = cards[i];
 
-         // Swap the current and the card at the random index.
+         // Swap the current and the card at the random index
          cards[i] = cards[randomIndex];
          cards[randomIndex] = temp;
       }
@@ -134,6 +132,7 @@ public class Deck
 
    public static void main(String[] args)
    {
+      
       final int MAX_HANDS = 10;
       Hand[] hands = new Hand[MAX_HANDS];
       for (int i = 0; i < MAX_HANDS; i++)
@@ -146,7 +145,7 @@ public class Deck
 
       Scanner scann = new Scanner(System.in);
 
-      // input
+      // Input
       // do {
       System.out.print("How many hands? (1 - " + MAX_HANDS + ", please) ");
 
@@ -154,16 +153,14 @@ public class Deck
       System.out.println(numHands + " hands:");
       // } while (numHands < 1 || numHands > MAX_HANDS);
 
-      // unshuffled
+      // Unshuffled
       while (deck.getNumCards() > 0)
       {
          for (k = 0; k < numHands; k++)
          {
             if (deck.getNumCards() == 0)
                break;
-
             hands[k].takeCard(deck.dealCard());
-
          }
 
       }
@@ -171,9 +168,7 @@ public class Deck
       System.out.println("\nUnshuffled deck:");
       for (k = 0; k < numHands; k++)
       {
-
          System.out.println(hands[k]);
-
       }
 
       // shuffled
@@ -182,9 +177,8 @@ public class Deck
 
       // clear hands
       for (k = 0; k < numHands; k++)
-
          hands[k].resetHand();
-
+      
       while (deck.getNumCards() > 0)
       {
          for (k = 0; k < numHands; k++)
@@ -199,10 +193,9 @@ public class Deck
       System.out.println("\n\n Shuffled deck:");
       for (k = 0; k < numHands; k++)
       {
-
          System.out.println(hands[k].toString());
-
       }
-
+      
    }
+   
 }
