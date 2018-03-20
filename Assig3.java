@@ -13,28 +13,72 @@ public class Assig3 {
 	static Scanner sc;
 	
 	public static void main(String[] args) {
+		deckAndHand();
+	}
+	
+	
+	// FOR TESTING ONLY
+	// TODO TRANSFER THE CONTENTS OF THIS METHOD TO THE MAIN FUNCTION BEFORE SUBMITTING
+	// TODO DELETE THIS METHOD
+	private static void deckAndHand() {
 		// Initialize the scanner
-		sc = new Scanner(System.in);
-		
-		int numPlayers = 0;
-		Deck deck = new Deck();
+				sc = new Scanner(System.in);
+				
+				int numPlayers = 0;
+				Deck deck = new Deck();
+				
+				// Get the number of players from the user
+				while (numPlayers < 1 || numPlayers > 10) {
+					System.out.println("Please select the number of players (from 1 to 10):");
+					numPlayers = sc.nextInt();
+				}
+				
+				// Create a new (empty) hand for each player
+				Hand[] hands = new Hand[numPlayers];
+				for (int i = 0; i < hands.length; i++) {
+					hands[i] = new Hand();
+				}
+				
+				// ---- UNSHUFFLED HAND ----
+				
+				// Deal the cards
+				dealCards(deck, hands);
+				
+				System.out.println("\n---------- Here are your hands from an unshuffled deck ----------");
+				
+				// Display each hand
+				displayHands(hands);
+				
+				// Reset each hand
+				for (Hand hand : hands) {
+					hand.resetHand();
+				}
+				
+				// ---- SHUFFLED HAND ----
+				
+				// Reset the deck and shuffle it
+				deck = new Deck();
+				deck.shuffle();
+				
+				// Deal the cards
+				dealCards(deck, hands);
+				
+				System.out.println("\n---------- Here are your hands from a shuffled deck ----------");
+				
+				// Display each hand
+				displayHands(hands);
+				
+				
+	}
+	
+	/**
+	 * Deals cards to each hand, one card per hand at a time, until the deck is empty
+	 * @parm deck - the deck that is being dealt from
+	 * @param hands - the array of Hand objects that the deck is being dealt into
+	 */
+	private static void dealCards(Deck deck, Hand [] hands) {
 		Card card;
 		
-		
-		// Get the number of players from the user
-		while (numPlayers < 1 || numPlayers > 10) {
-			System.out.println("Please select the number of players (from 1 to 10):");
-			numPlayers = sc.nextInt();
-		}
-		
-		
-		// Create a new (empty) hand for each player
-		Hand[] hands = new Hand[numPlayers];
-		for (int i = 0; i < hands.length; i++) {
-			hands[i] = new Hand();
-		}
-		
-		// Deal cards to each hand, one card per hand at a time, until the deck is empty
 		while (deck.getNumCards() != 0) {
 			for (Hand hand : hands) {
 				card = deck.dealCard();
@@ -44,14 +88,17 @@ public class Assig3 {
 			}
 		}
 		
+	}
+	
+	/**
+	 * Used to display an array of hands
+	 * @param hands - the array of Hand objects that will be displayed
+	 */
+	private static void displayHands(Hand [] hands) {
 		for (int i = 0; i < hands.length; i++) {
-			System.out.println("# of cards = " + hands[i].getNumOfCards()); // FOR TESTING ONLY
-			System.out.printf("\n--------------- Hand %d ---------------"
+				System.out.printf("\n----- Hand %d -----"
 					+ "\n%s\n", i+1, hands[i].toString());
-		}
-		
-		
-		
+		}	
 	}
 	
 	private static void testCard() {
@@ -133,13 +180,13 @@ public class Assig3 {
 	      int k = 0, numHands;
 	      Deck deck = new Deck(1);
 
-	      Scanner scann = new Scanner(System.in);
+	      sc = new Scanner(System.in);
 
 	      // Input
 	      // do {
 	      System.out.print("How many hands? (1 - " + MAX_HANDS + ", please) ");
 
-	      numHands = scann.nextInt();
+	      numHands = sc.nextInt();
 	      System.out.println(numHands + " hands:");
 	      // } while (numHands < 1 || numHands > MAX_HANDS);
 
@@ -380,9 +427,10 @@ class Hand
    /**
     * Removes all cards from the hand
     */
-   public void resetHand()  //TODO Does this needs more?  Need delete cards from myCards array?
+   public void resetHand()
    {
       numCards = 0;
+      myCards = new Card[MAX_CARDS]; 
    }
 
    /**
@@ -439,8 +487,8 @@ class Hand
          {
             returnVal += myCards[i].toString();
             if ((counter + 1) != numCards)
-               returnVal += ",";
-            counter++;
+               returnVal += ", ";
+            	counter++;
             //Check if reached end of hand
             if (counter == numCards)
                returnVal += " )";
