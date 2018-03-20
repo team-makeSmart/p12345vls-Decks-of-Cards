@@ -8,6 +8,10 @@
 public class Card 
 {
       
+   /** Constant array of valid card values acceptable for program */ 
+   public static final char[] VALID_CARD_VALUES = {'2', '3', '4', 
+      '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};      
+      
    /**
     * Enumerated Suit values
     */
@@ -179,14 +183,18 @@ public class Card
     * Checks if is the values entered by the user are valid.
     * @param value the value
     * @param suit the suit
-    * @return true, if is valid
+    * @return true, if all values are valid
     */
    private boolean isValid(char value, Suit suit) 
    {
-      return (value == 'A' || value == 'K' || value == 'Q' || value == 'J' || 
-         value == 'T' || (value >= '2' && value <= '9')) && (suit == 
-         Suit.CLUBS || suit == Suit.DIAMONDS || suit == Suit.HEARTS || 
-         suit == Suit.SPADES);
+     for(char val : VALID_CARD_VALUES) 
+     {
+        if(value == val) 
+        {
+           return true; //The value argument found in VALID_CARD_VALUES array
+        }        
+     }
+     return false; // The value argument was not found  
    }
    
 }
