@@ -16,10 +16,10 @@ public class Hand
    {
       // Create a hand object and 4 card objects
       Hand hand1 = new Hand();
-      Card card1 = new Card('2',  Card.Suit.diamonds);
-      Card card2 = new Card('4',  Card.Suit.hearts);
-      Card card3 = new Card('5',  Card.Suit.spades);
-      Card card4 = new Card('T',  Card.Suit.clubs);
+      Card card1 = new Card('2',  Card.Suit.DIAMONDS);
+      Card card2 = new Card('4',  Card.Suit.HEARTS);
+      Card card3 = new Card('5',  Card.Suit.SPADES);
+      Card card4 = new Card('T',  Card.Suit.CLUBS);
 
       // Populate the hand with legal and
       // Illegal values
@@ -28,9 +28,9 @@ public class Hand
          hand1.takeCard(card1);
          hand1.takeCard(card2);
          hand1.takeCard(card3);
-         card3.set('e',  Card.Suit.diamonds);
+         card3.set('e',  Card.Suit.DIAMONDS);
          hand1.takeCard(card3);
-         card4.set('w',  Card.Suit.diamonds);
+         card4.set('w',  Card.Suit.DIAMONDS);
          hand1.takeCard(card4);   
       }
       
@@ -58,27 +58,28 @@ public class Hand
    }
 
    /** The max cards in the hand */
-   public int MAX_CARDS = 50;
+   public static final int MAX_CARDS = 50; 
 
    /** holds all the cards */
-   Card[] myCards = new Card[MAX_CARDS];
+   private Card[] myCards = new Card[MAX_CARDS]; 
 
    /** The number of card in the array. */
-   int numCards;
+   private int numCards;
 
    /**
     * Default constructor
     */
-   public Hand() {
+   public Hand() 
+   {
       this.numCards = 0;
    }
 
    /**
     * Removes all cards from the hand
     */
-   public void resetHand() {
+   public void resetHand()  //TODO Does this needs more?  Need delete cards from myCards array?
+   {
       numCards = 0;
-
    }
 
    /**
@@ -90,11 +91,15 @@ public class Hand
    {
       if (numCards < MAX_CARDS) 
       {
+         // Makes a copy of new card and stores in index.  Then increments numCards.
          myCards[numCards++] = new Card(card.getValue(), card.getSuit());
 
-         if (numCards == MAX_CARDS) 
+         if (numCards == MAX_CARDS) // The hand is full  
          {
-            System.out.println("\nHand Full\nAfter Deal");
+          //TODO takeCard should not print to screen.  It should just return true/false 
+          //TODO printing to the screen should be handled in the main() part of the program  
+          //TODO Changes here will affect main() as well and will need changes in main() too
+            System.out.println("\nHand Full\nAfter Deal");  
             return false;
          }
       }
@@ -103,45 +108,45 @@ public class Hand
 
    /**
     * Returns and removes the card in the top occupied position of the array
-    *
     * @return a deep copy of the card
     */
-   Card playCard() 
+   Card playCard() //TODO is this deleting from the array for cards?  Card values still left in array
    {
-      Card error = new Card('w', Card.Suit.spades);
+      Card errorCard = new Card('w', Card.Suit.SPADES);
       if (numCards == 0)
-         return error;
+         return errorCard;
       return myCards[--numCards];
    }
 
    /**
-    * Prints the cards in the hand
+    * Prints value and suit for all the cards in the hand
     */
    public String toString() 
    {
-      int counter = 0;
-      if (numCards == 0) 
+      int counter = 0;   //Keeps place of cards in the hand
+      if (numCards == 0) //There are no cards in the hand
       {
          return "\nHand = (  )";
       } 
-      else 
+      else //There are cards in the hand
       {
-         String retVal = "\nHand = ( ";
-
+         String returnVal = "\nHand = ( ";
+          
          for (int i = 0; i < numCards; i++) 
          {
-            retVal += myCards[i].toString();
-            if (counter + 1 != numCards)
-               retVal += ",";
-            
+            returnVal += myCards[i].toString();
+            if ((counter + 1) != numCards)
+               returnVal += ",";
             counter++;
-            
+            //Check if reached end of hand
             if (counter == numCards)
-               retVal += " )";
+               returnVal += " )";
+            
+            //If more than sixth card, go to newline         
             if (counter % 6 == 0)
-               retVal += "\n";
+               returnVal += "\n";
          }
-         return retVal;
+         return returnVal;
       }
    }
 
@@ -162,9 +167,9 @@ public class Hand
     */
    Card inspectCard(int k) 
    {
-      Card error = new Card('w', Card.Suit.spades);
+      Card errorCard = new Card('w', Card.Suit.SPADES);
       if (k < 0 || k >= numCards)
-         return error;
+         return errorCard;
       return myCards[k];
    }
 
