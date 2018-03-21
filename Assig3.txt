@@ -13,79 +13,92 @@ public class Assig3
 
    public static void main(String[] args)
    {
-	  testCard();
-      testHand();
-      testDeck();
+	   testCard();
+	   testHand();
+	   testDeck();
       
-      Hand[] hands = new Hand[MAX_HANDS];
-      for (int i = 0; i < MAX_HANDS; i++)
-      {
-         hands[i] = new Hand();
-      }
-
-      int k = 0, numHands = 0;
-      Deck deck = new Deck(1);
-      scann = new Scanner(System.in);
-
-      // Get user input.
-      while (true)
-      {
-
-         System.out.print("How many hands? (1 - " + MAX_HANDS + ", please) or (-1 to exit): ");
-         numHands = scann.nextInt();
-
-         System.out.println(numHands + " hands:");
-
-         // Display the deck before shuffling.
-         while (deck.getNumCards() > 0)
-         {
-            for (k = 0; k < numHands; k++)
-            {
-               if (deck.getNumCards() == 0)
-                  break;
-
-               hands[k].takeCard(deck.dealCard());
-            }
-         }
-
-         System.out.println("\nUnshuffled deck:");
-         for (k = 0; k < numHands; k++)
-         {
-            System.out.println(hands[k]);
-
-         }
-
-         // Display the deck after shuffling.
-         deck.init(1);
-         deck.shuffle();
-
-         // Clear the hand.
-         for (k = 0; k < numHands; k++)
-            hands[k].resetHand();
-
-         while (deck.getNumCards() > 0)
-         {
-            for (k = 0; k < numHands; k++)
-            {
-               if (deck.getNumCards() == 0)
-                  break;
-
-               hands[k].takeCard(deck.dealCard());
-            }
-         }
-
-         System.out.println("\n\n Shuffled deck:");
-         for (k = 0; k < numHands; k++)
-         {
-
-            System.out.println(hands[k].toString());
-
-         }
-         
-      }
+	   // Initialize the scanner
+	   scann = new Scanner(System.in);
+ 		
+	   int numPlayers = 0;
+	   Deck deck = new Deck();
+ 		
+	   // Get the number of players from the user
+	   while (numPlayers < 1 || numPlayers > 10) {
+		   System.out.println("\nPlease select the number of players (from 1 to 10):");
+		   numPlayers = scann.nextInt();
+	   }
+ 		
+	   // Create a new (empty) hand for each player
+	   Hand[] hands = new Hand[numPlayers];
+	   for (int i = 0; i < hands.length; i++) {
+		   hands[i] = new Hand();
+	   }
+ 		
+	   // ---- UNSHUFFLED HAND ----
+ 		
+	   // Deal the cards
+	   dealCards(deck, hands);
+ 		
+	   System.out.println("\n---------- Here are your hands from an unshuffled deck ----------");
+ 		
+	   // Display each hand
+	   displayHands(hands);
+ 		
+	   // Reset each hand
+	   for (Hand hand : hands) {
+		   hand.resetHand();
+	   }
+ 		
+	   // ---- SHUFFLED HAND ----
+ 		
+	   // Reset the deck and shuffle it
+	   deck = new Deck();
+	   deck.shuffle();
+ 		
+	   // Deal the cards
+	   dealCards(deck, hands);
+ 		
+	   System.out.println("\n---------- Here are your hands from a shuffled deck ----------");
+ 		
+	   // Display each hand
+	   displayHands(hands);
+ 		
+	   // Close the scanner
+	   scann.close();
+   	}
+   	
+   	
+   	/**
+   	 * Deals cards to each hand, one card per hand at a time, until the deck is empty
+   	 * @param deck - the deck that is being dealt from
+   	 * @param hands - the array of Hand objects that the deck is being dealt into
+   	 */
+   	private static void dealCards(Deck deck, Hand [] hands) {
+   		Card card;
+   		
+   		while (deck.getNumCards() != 0) {
+   			for (Hand hand : hands) {
+   				card = deck.dealCard();
+   				if (!card.getErrorFlag()) {
+   					hand.takeCard(card);
+   				}
+   			}
+   		}
+   		
+   	}
+   	
+   	/**
+   	 * Used to display an array of hands
+   	 * @param hands - the array of Hand objects that will be displayed
+   	 */
+   	private static void displayHands(Hand [] hands) {
+   		for (int i = 0; i < hands.length; i++) {
+   				System.out.printf("\n----- Hand %d -----"
+   					+ "\n%s\n", i+1, hands[i].toString());
+   		}	
+   	}
       
-   }
-   
    
    private enum TestMsgOption { OPEN, CLOSE }; // used for the method below
    
@@ -233,9 +246,13 @@ public class Assig3
 		    
 		  System.out.println(outString + "\n\n");
    }
-   
-   
+      
 }
+   
+   
+   
+   
+  
 
 // ------------------------ CARD CLASS ----------------------------------
 
@@ -656,7 +673,9 @@ class Deck
 }
 
 /*
+
 -------------------Testing Card Class------------------------
+
 A of Spades
 ** illegal **
 J of Clubs
@@ -664,9 +683,10 @@ J of Clubs
 ** illegal **
 Q of Spades
 J of Clubs
-------------------------End of  Test------------------------
+--------------- End of Card Class Test ----------------------
 
--------------------Testing Hand  Class------------------------
+-------------------Testing Hand Class------------------------
+
 
 Hand = ( 2 of Diamonds, 4 of Hearts, 5 of Spades, 5 of Spades, T of Clubs, 2 of Diamonds, 
 4 of Hearts, 5 of Spades, 5 of Spades, T of Clubs, 2 of Diamonds, 4 of Hearts, 
@@ -735,62 +755,137 @@ Playing 2 of Diamonds
 After playing all cards
 
 Hand = (  )
--------------------End of Test------------------------
--------------------Testing Deck  Class------------------------
-How many hands? (1 - 10, please) 8
-8 hands:
+--------------- End of Hand Class Test ----------------------
 
-Unshuffled deck:
+-------------------Testing Deck Class------------------------
 
-Hand = ( A of Spades, 6 of Spades, J of Hearts, 3 of Hearts, 8 of Diamonds, K of Clubs, 
-5 of Clubs )
+---- Double pack (Unshuffled) ----
 
-Hand = ( K of Spades, 5 of Spades, T of Hearts, 2 of Hearts, 7 of Diamonds, Q of Clubs, 
-4 of Clubs )
-
-Hand = ( Q of Spades, 4 of Spades, 9 of Hearts, A of Diamonds, 6 of Diamonds, J of Clubs, 
-3 of Clubs )
-
-Hand = ( J of Spades, 3 of Spades, 8 of Hearts, K of Diamonds, 5 of Diamonds, T of Clubs, 
-2 of Clubs )
-
-Hand = ( T of Spades, 2 of Spades, 7 of Hearts, Q of Diamonds, 4 of Diamonds, 9 of Clubs )
-
-
-Hand = ( 9 of Spades, A of Hearts, 6 of Hearts, J of Diamonds, 3 of Diamonds, 8 of Clubs )
-
-
-Hand = ( 8 of Spades, K of Hearts, 5 of Hearts, T of Diamonds, 2 of Diamonds, 7 of Clubs )
-
-
-Hand = ( 7 of Spades, Q of Hearts, 4 of Hearts, 9 of Diamonds, A of Clubs, 6 of Clubs )
+A of Spades, K of Spades, Q of Spades, J of Spades, T of Spades, 
+9 of Spades, 8 of Spades, 7 of Spades, 6 of Spades, 5 of Spades, 
+4 of Spades, 3 of Spades, 2 of Spades, A of Hearts, K of Hearts, 
+Q of Hearts, J of Hearts, T of Hearts, 9 of Hearts, 8 of Hearts, 
+7 of Hearts, 6 of Hearts, 5 of Hearts, 4 of Hearts, 3 of Hearts, 
+2 of Hearts, A of Diamonds, K of Diamonds, Q of Diamonds, J of Diamonds, 
+T of Diamonds, 9 of Diamonds, 8 of Diamonds, 7 of Diamonds, 6 of Diamonds, 
+5 of Diamonds, 4 of Diamonds, 3 of Diamonds, 2 of Diamonds, A of Clubs, 
+K of Clubs, Q of Clubs, J of Clubs, T of Clubs, 9 of Clubs, 
+8 of Clubs, 7 of Clubs, 6 of Clubs, 5 of Clubs, 4 of Clubs, 
+3 of Clubs, 2 of Clubs, A of Spades, K of Spades, Q of Spades, 
+J of Spades, T of Spades, 9 of Spades, 8 of Spades, 7 of Spades, 
+6 of Spades, 5 of Spades, 4 of Spades, 3 of Spades, 2 of Spades, 
+A of Hearts, K of Hearts, Q of Hearts, J of Hearts, T of Hearts, 
+9 of Hearts, 8 of Hearts, 7 of Hearts, 6 of Hearts, 5 of Hearts, 
+4 of Hearts, 3 of Hearts, 2 of Hearts, A of Diamonds, K of Diamonds, 
+Q of Diamonds, J of Diamonds, T of Diamonds, 9 of Diamonds, 8 of Diamonds, 
+7 of Diamonds, 6 of Diamonds, 5 of Diamonds, 4 of Diamonds, 3 of Diamonds, 
+2 of Diamonds, A of Clubs, K of Clubs, Q of Clubs, J of Clubs, 
+T of Clubs, 9 of Clubs, 8 of Clubs, 7 of Clubs, 6 of Clubs, 
+5 of Clubs, 4 of Clubs, 3 of Clubs, 2 of Clubs
 
 
+---- Double pack (Shuffled) ----
 
- Shuffled deck:
+2 of Hearts, 5 of Spades, 7 of Hearts, K of Clubs, Q of Diamonds, 
+3 of Clubs, A of Clubs, J of Spades, 8 of Clubs, J of Clubs, 
+J of Diamonds, 7 of Clubs, J of Diamonds, 8 of Hearts, T of Clubs, 
+T of Diamonds, 4 of Spades, 4 of Spades, 8 of Hearts, K of Spades, 
+K of Diamonds, 9 of Spades, A of Diamonds, 9 of Diamonds, 9 of Clubs, 
+6 of Clubs, Q of Spades, 7 of Spades, 6 of Spades, K of Diamonds, 
+8 of Spades, 7 of Clubs, 2 of Spades, 4 of Clubs, 9 of Diamonds, 
+3 of Spades, 7 of Diamonds, 5 of Clubs, 4 of Hearts, 3 of Hearts, 
+2 of Clubs, 5 of Spades, 4 of Diamonds, 5 of Diamonds, 6 of Spades, 
+J of Spades, 5 of Hearts, A of Hearts, 9 of Hearts, 6 of Diamonds, 
+7 of Hearts, A of Diamonds, T of Spades, 4 of Hearts, Q of Clubs, 
+6 of Clubs, T of Hearts, 2 of Hearts, Q of Clubs, J of Hearts, 
+T of Hearts, 2 of Diamonds, 8 of Diamonds, 6 of Hearts, 2 of Diamonds, 
+Q of Hearts, T of Diamonds, Q of Spades, Q of Hearts, 9 of Hearts, 
+7 of Diamonds, 2 of Clubs, J of Hearts, 5 of Hearts, 9 of Spades, 
+K of Hearts, 3 of Hearts, 4 of Diamonds, T of Spades, J of Clubs, 
+A of Hearts, 3 of Spades, 3 of Diamonds, K of Spades, 5 of Clubs, 
+7 of Spades, T of Clubs, 6 of Hearts, 3 of Diamonds, 5 of Diamonds, 
+8 of Clubs, K of Clubs, 3 of Clubs, A of Spades, A of Clubs, 
+8 of Spades, 6 of Diamonds, A of Spades, 9 of Clubs, Q of Diamonds, 
+8 of Diamonds, 2 of Spades, K of Hearts, 4 of Clubs
 
-Hand = ( 4 of Clubs, 8 of Spades, K of Spades, 5 of Spades, 2 of Clubs, Q of Hearts, 
-T of Spades )
 
-Hand = ( T of Hearts, K of Clubs, 9 of Diamonds, 6 of Clubs, 2 of Spades, 9 of Clubs, 
-3 of Spades )
+---- Single pack (Unshuffled) ---- 
 
-Hand = ( 9 of Spades, 8 of Hearts, 2 of Hearts, K of Hearts, A of Clubs, 8 of Clubs, 
-A of Diamonds )
-
-Hand = ( 3 of Clubs, J of Spades, T of Clubs, 3 of Hearts, K of Diamonds, Q of Clubs, 
-6 of Spades )
-
-Hand = ( J of Clubs, Q of Spades, 4 of Spades, J of Hearts, 8 of Diamonds, 7 of Diamonds )
-
-
-Hand = ( 3 of Diamonds, 4 of Diamonds, J of Diamonds, Q of Diamonds, T of Diamonds, 9 of Hearts )
+A of Spades, K of Spades, Q of Spades, 
+J of Spades, T of Spades, 9 of Spades, 8 of Spades, 7 of Spades, 
+6 of Spades, 5 of Spades, 4 of Spades, 3 of Spades, 2 of Spades, 
+A of Hearts, K of Hearts, Q of Hearts, J of Hearts, T of Hearts, 
+9 of Hearts, 8 of Hearts, 7 of Hearts, 6 of Hearts, 5 of Hearts, 
+4 of Hearts, 3 of Hearts, 2 of Hearts, A of Diamonds, K of Diamonds, 
+Q of Diamonds, J of Diamonds, T of Diamonds, 9 of Diamonds, 8 of Diamonds, 
+7 of Diamonds, 6 of Diamonds, 5 of Diamonds, 4 of Diamonds, 3 of Diamonds, 
+2 of Diamonds, A of Clubs, K of Clubs, Q of Clubs, J of Clubs, 
+T of Clubs, 9 of Clubs, 8 of Clubs, 7 of Clubs, 6 of Clubs, 
+5 of Clubs, 4 of Clubs, 3 of Clubs, 2 of Clubs
 
 
-Hand = ( 7 of Clubs, A of Hearts, 4 of Hearts, 5 of Diamonds, 6 of Diamonds, 5 of Clubs )
+---- Single pack (Shuffled) ----
+
+7 of Clubs, 6 of Hearts, 4 of Clubs, 
+9 of Diamonds, 4 of Spades, 4 of Diamonds, 3 of Hearts, 4 of Hearts, 
+3 of Clubs, T of Spades, K of Spades, T of Hearts, 2 of Clubs, 
+7 of Hearts, 3 of Spades, T of Clubs, Q of Diamonds, 8 of Spades, 
+6 of Spades, 2 of Hearts, A of Spades, K of Hearts, Q of Spades, 
+9 of Spades, 2 of Diamonds, 6 of Diamonds, 3 of Diamonds, A of Hearts, 
+Q of Hearts, J of Hearts, A of Diamonds, 2 of Spades, 5 of Spades, 
+J of Clubs, 5 of Hearts, 5 of Clubs, T of Diamonds, 9 of Clubs, 
+K of Clubs, 8 of Clubs, 5 of Diamonds, 8 of Diamonds, 8 of Hearts, 
+6 of Clubs, A of Clubs, J of Diamonds, 7 of Spades, 9 of Hearts, 
+K of Diamonds, 7 of Diamonds, J of Spades, Q of Clubs
 
 
-Hand = ( 7 of Spades, 7 of Hearts, 5 of Hearts, 2 of Diamonds, 6 of Hearts, A of Spades )
+--------------- End of Deck Class Test ----------------------
 
--------------------End of Test------------------------
-*/
+Please select the number of players (from 1 to 10):
+3
+
+---------- Here are your hands from an unshuffled deck ----------
+
+----- Hand 1 -----
+
+Hand = ( A of Spades, J of Spades, 8 of Spades, 5 of Spades, 2 of Spades, Q of Hearts, 
+9 of Hearts, 6 of Hearts, 3 of Hearts, K of Diamonds, T of Diamonds, 7 of Diamonds, 
+4 of Diamonds, A of Clubs, J of Clubs, 8 of Clubs, 5 of Clubs, 2 of Clubs )
+
+
+----- Hand 2 -----
+
+Hand = ( K of Spades, T of Spades, 7 of Spades, 4 of Spades, A of Hearts, J of Hearts, 
+8 of Hearts, 5 of Hearts, 2 of Hearts, Q of Diamonds, 9 of Diamonds, 6 of Diamonds, 
+3 of Diamonds, K of Clubs, T of Clubs, 7 of Clubs, 4 of Clubs )
+
+----- Hand 3 -----
+
+Hand = ( Q of Spades, 9 of Spades, 6 of Spades, 3 of Spades, K of Hearts, T of Hearts, 
+7 of Hearts, 4 of Hearts, A of Diamonds, J of Diamonds, 8 of Diamonds, 5 of Diamonds, 
+2 of Diamonds, Q of Clubs, 9 of Clubs, 6 of Clubs, 3 of Clubs )
+
+---------- Here are your hands from a shuffled deck ----------
+
+----- Hand 1 -----
+
+Hand = ( 5 of Diamonds, 2 of Diamonds, T of Diamonds, 4 of Diamonds, 3 of Spades, 6 of Spades, 
+T of Spades, 3 of Clubs, T of Clubs, 2 of Hearts, A of Diamonds, J of Clubs, 
+9 of Spades, 8 of Diamonds, 4 of Spades, 6 of Hearts, K of Clubs, T of Hearts )
+
+
+----- Hand 2 -----
+
+Hand = ( 5 of Spades, 7 of Diamonds, J of Hearts, K of Spades, Q of Clubs, J of Spades, 
+Q of Hearts, Q of Spades, 9 of Diamonds, A of Spades, 4 of Hearts, 8 of Spades, 
+Q of Diamonds, 8 of Hearts, 4 of Clubs, 6 of Diamonds, A of Clubs )
+
+----- Hand 3 -----
+
+Hand = ( 3 of Hearts, 8 of Clubs, A of Hearts, K of Diamonds, 2 of Clubs, K of Hearts, 
+9 of Hearts, 7 of Clubs, 7 of Spades, 5 of Hearts, 7 of Hearts, 5 of Clubs, 
+3 of Diamonds, 9 of Clubs, 2 of Spades, 6 of Clubs, J of Diamonds )
+
+
+ */
+
