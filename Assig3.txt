@@ -13,11 +13,9 @@ public class Assig3
 
    public static void main(String[] args)
    {
-    //  testCard();
-   //   testHand();
+	  testCard();
+      testHand();
       testDeck();
-      
-      /*
       
       Hand[] hands = new Hand[MAX_HANDS];
       for (int i = 0; i < MAX_HANDS; i++)
@@ -84,11 +82,8 @@ public class Assig3
 
          }
          
-        
-         
       }
       
-       */
    }
    
    
