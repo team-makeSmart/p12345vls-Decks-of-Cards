@@ -17,8 +17,6 @@ public class Assig3
       testHand();
       testDeck();
       
-
-      
       Hand[] hands = new Hand[MAX_HANDS];
       for (int i = 0; i < MAX_HANDS; i++)
       {
@@ -35,12 +33,6 @@ public class Assig3
 
          System.out.print("How many hands? (1 - " + MAX_HANDS + ", please) or (-1 to exit): ");
          numHands = scann.nextInt();
-
-         if (numHands < 1 || numHands > MAX_HANDS)
-         {
-            System.out.println("Program exiting");
-            return;
-         }
 
          System.out.println(numHands + " hands:");
 
@@ -92,7 +84,6 @@ public class Assig3
          
       }
       
-      // scann.close();
    }
    
    
@@ -192,7 +183,7 @@ public class Assig3
 
    private static void testDeck()
    {
-	  testMsg("Deck", TestMsgOption.CLOSE);
+	  testMsg("Deck", TestMsgOption.OPEN);
 	   
 	  
       Hand[] hands = new Hand[MAX_HANDS];
