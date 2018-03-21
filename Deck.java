@@ -6,7 +6,6 @@
  */
 
 import java.util.Scanner;
-import java.util.UUID;
 
 public class Deck
 {
@@ -32,34 +31,26 @@ public class Deck
 
    public static void allocateMasterPack()
    {
-      int k = 0, j = 0;
-      Card.Suit suit;
-      char value;
-
+      // Check if the master pack has been created already.
       boolean firstTime = true;
       if (!firstTime)
          return;
       firstTime = false;
       
-      for (k = 0; k < Card.Suit.values().length; k++)
+      Card.Suit suit;
+      char value; 
+      
+      // Add a cards with a defined value and suit to the master pack.
+      for (int k = 0; k < Card.Suit.values().length; k++)
       {
          suit = Card.Suit.values()[k];
-
-         masterPack[13 * k] = new Card('A', suit);
-         for (value = '2', j = 1; value <= '9'; value++, j++)
+         
+         for (int v = 0; v < Card.VALID_CARD_VALUES.length; v++)
          {
-            masterPack[13 * k + j] = new Card(value, suit);
-            masterPack[13 * k + 9] = new Card('T', suit);
-            masterPack[13 * k + 10] = new Card('J', suit);
-            masterPack[13 * k + 11] = new Card('Q', suit);
-            masterPack[13 * k + 12] = new Card('K', suit);
+            value = Card.VALID_CARD_VALUES[v];
+            masterPack[13 * k + v] = new Card(value, suit);
          }
       }
-      // System.out.println("\n----------------masterpack-------------");
-      // for (Card c : masterPack) {
-      // System.out.println(c);
-      // }
-
    }
 
    public void init(int numPacks)
@@ -81,11 +72,6 @@ public class Deck
       }
       this.numPacks = numPacks;
       topCard = numPacks * 52;
-
-      // System.out.println("-----init---------------------" + topCard);
-      // for (Card c : cards) {
-      // System.out.println(c);
-      // }
    }
 
    public void shuffle()
@@ -106,8 +92,8 @@ public class Deck
 
    public Card dealCard()
    {
-      Card error = new Card('s', Card.Suit.diamonds);
-
+      Card error = new Card('s', Card.Suit.DIAMONDS);
+      
       if (topCard == 0)
          return error;
       else
@@ -116,8 +102,7 @@ public class Deck
 
    public Card inspectCard(int k)
    {
-
-      Card error = new Card('s', Card.Suit.diamonds);
+      Card error = new Card('s', Card.Suit.DIAMONDS);
 
       if (k < 0 || k >= topCard)
          return error;
@@ -146,12 +131,10 @@ public class Deck
       Scanner scann = new Scanner(System.in);
 
       // Input
-      // do {
       System.out.print("How many hands? (1 - " + MAX_HANDS + ", please) ");
 
       numHands = scann.nextInt();
       System.out.println(numHands + " hands:");
-      // } while (numHands < 1 || numHands > MAX_HANDS);
 
       // Unshuffled
       while (deck.getNumCards() > 0)
@@ -166,6 +149,7 @@ public class Deck
       }
 
       System.out.println("\nUnshuffled deck:");
+     // System.out.println(x);
       for (k = 0; k < numHands; k++)
       {
          System.out.println(hands[k]);
