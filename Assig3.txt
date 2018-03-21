@@ -8,24 +8,14 @@ import java.util.Scanner;
 
 public class Assig3
 {
-   static Scanner sc;
+   static Scanner scann;
 
    public static void main(String[] args)
    {
-      System.out.println("-------------------Testing Card Class------------------------");
-
       testCard();
-      System.out.println("------------------------End of  Test------------------------");
-
-      System.out.println("\n-------------------Testing Hand  Class------------------------");
-
       testHand();
-      System.out.println("-------------------End of Test------------------------");
-
-      System.out.println("-------------------Testing Deck  Class------------------------");
-
       testDeck();
-      System.out.println("-------------------End of Test------------------------");
+      
 
       final int MAX_HANDS = 10;
       Hand[] hands = new Hand[MAX_HANDS];
@@ -37,7 +27,7 @@ public class Assig3
 
       int k = 0, numHands = 0;
       Deck deck = new Deck(1);
-      Scanner scann = new Scanner(System.in);
+      scann = new Scanner(System.in);
 
       // Get user input.
       while (true)
@@ -99,12 +89,33 @@ public class Assig3
             System.out.println(hands[k].toString());
 
          }
-
+         
       }
+      
+      // scann.close();
+   }
+   
+   
+   private enum TestMsgOption { OPEN, CLOSE }; // used for the method below
+   
+   /**
+    * Used to format the output
+    * @param className - the name of the class
+    * @param option - whether its an opening or closing message
+    */
+   private static void testMsg(String className, TestMsgOption option) {
+	   if (option == TestMsgOption.OPEN) {
+		   System.out.printf("-------------------Testing %s Class------------------------", className);
+	   } else if (option == TestMsgOption.CLOSE) {
+		   System.out.printf("--------------- End of %s Class Test ----------------------", className);
+	   }
+	   
    }
 
    private static void testCard()
    {
+	  testMsg("Card", TestMsgOption.OPEN);
+	   
       // Create card objects for testing
       Card card1 = new Card('A', Card.Suit.SPADES);
       Card card2 = new Card('s', Card.Suit.SPADES);
@@ -127,10 +138,14 @@ public class Assig3
       System.out.println(card4.toString());
       System.out.println(card5.toString());
       System.out.println(card6.toString());
+      
+      testMsg("Card", TestMsgOption.CLOSE);
    }
 
    private static void testHand()
    {
+	   testMsg("Hand", TestMsgOption.OPEN);
+	   
       // Create a hand object and 4 card objects
       Hand hand1 = new Hand();
       Card card1 = new Card('2', Card.Suit.DIAMONDS);
@@ -171,10 +186,14 @@ public class Assig3
 
       System.out.println("\nAfter playing all cards");
       System.out.println(hand1.toString());
+      
+      testMsg("Hand", TestMsgOption.CLOSE);
    }
 
    private static void testDeck()
    {
+	  testMsg("Deck", TestMsgOption.CLOSE);
+	   
       final int MAX_HANDS = 10;
       Hand[] hands = new Hand[MAX_HANDS];
       for (int i = 0; i < MAX_HANDS; i++)
@@ -185,11 +204,11 @@ public class Assig3
       int k = 0, numHands;
       Deck deck = new Deck(1);
       
-      sc = new Scanner(System.in);
+      scann = new Scanner(System.in);
 
       System.out.print("How many hands? (1 - " + MAX_HANDS + ", please) ");
 
-      numHands = sc.nextInt();
+      numHands = scann.nextInt();
       System.out.println(numHands + " hands:");
 
       // Unshuffled
@@ -234,7 +253,11 @@ public class Assig3
       {
          System.out.println(hands[k].toString());
       }
+      
+      testMsg("Deck", TestMsgOption.CLOSE);
    }
+   
+   
 }
 
 // ------------------------ CARD CLASS ----------------------------------
