@@ -15,63 +15,57 @@ public class Assig3
 	
 	public static void main(String[] args) 
 	{
-		deckAndHand();
-	}
-	
-	
-	// FOR TESTING ONLY
-	// TODO TRANSFER THE CONTENTS OF THIS METHOD TO THE MAIN FUNCTION BEFORE SUBMITTING
-	// TODO DELETE THIS METHOD
-	private static void deckAndHand() {
 		// Initialize the scanner
-				sc = new Scanner(System.in);
-				
-				int numPlayers = 0;
-				Deck deck = new Deck();
-				
-				// Get the number of players from the user
-				while (numPlayers < 1 || numPlayers > 10) {
-					System.out.println("Please select the number of players (from 1 to 10):");
-					numPlayers = sc.nextInt();
-				}
-				
-				// Create a new (empty) hand for each player
-				Hand[] hands = new Hand[numPlayers];
-				for (int i = 0; i < hands.length; i++) {
-					hands[i] = new Hand();
-				}
-				
-				// ---- UNSHUFFLED HAND ----
-				
-				// Deal the cards
-				dealCards(deck, hands);
-				
-				System.out.println("\n---------- Here are your hands from an unshuffled deck ----------");
-				
-				// Display each hand
-				displayHands(hands);
-				
-				// Reset each hand
-				for (Hand hand : hands) {
-					hand.resetHand();
-				}
-				
-				// ---- SHUFFLED HAND ----
-				
-				// Reset the deck and shuffle it
-				deck = new Deck();
-				deck.shuffle();
-				
-				// Deal the cards
-				dealCards(deck, hands);
-				
-				System.out.println("\n---------- Here are your hands from a shuffled deck ----------");
-				
-				// Display each hand
-				displayHands(hands);
-				
-				
+		sc = new Scanner(System.in);
+		
+		int numPlayers = 0;
+		Deck deck = new Deck();
+		
+		// Get the number of players from the user
+		while (numPlayers < 1 || numPlayers > 10) {
+			System.out.println("Please select the number of players (from 1 to 10):");
+			numPlayers = sc.nextInt();
+		}
+		
+		// Create a new (empty) hand for each player
+		Hand[] hands = new Hand[numPlayers];
+		for (int i = 0; i < hands.length; i++) {
+			hands[i] = new Hand();
+		}
+		
+		// ---- UNSHUFFLED HAND ----
+		
+		// Deal the cards
+		dealCards(deck, hands);
+		
+		System.out.println("\n---------- Here are your hands from an unshuffled deck ----------");
+		
+		// Display each hand
+		displayHands(hands);
+		
+		// Reset each hand
+		for (Hand hand : hands) {
+			hand.resetHand();
+		}
+		
+		// ---- SHUFFLED HAND ----
+		
+		// Reset the deck and shuffle it
+		deck = new Deck();
+		deck.shuffle();
+		
+		// Deal the cards
+		dealCards(deck, hands);
+		
+		System.out.println("\n---------- Here are your hands from a shuffled deck ----------");
+		
+		// Display each hand
+		displayHands(hands);
+		
+		// Close the scanner
+		sc.close();
 	}
+	
 	
 	/**
 	 * Deals cards to each hand, one card per hand at a time, until the deck is empty
@@ -410,7 +404,7 @@ class Card {
 class Hand  
 {
    /** The max cards in the hand */
-   public static final int MAX_CARDS = 50; 
+   public static final int MAX_CARDS = 60; 
 
    /** holds all the cards */
    private Card[] myCards = new Card[MAX_CARDS]; 
