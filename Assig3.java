@@ -8,11 +8,13 @@ package assig3;
 
 import java.util.Scanner;
 
-public class Assig3 {
+public class Assig3 
+{
 	
 	static Scanner sc;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		deckAndHand();
 	}
 	
@@ -637,7 +639,6 @@ class Deck
 
    public Card inspectCard(int k)
    {
-
       Card error = new Card('s', Card.Suit.DIAMONDS);
 
       if (k < 0 || k >= topCard)
