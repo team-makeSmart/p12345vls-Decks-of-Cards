@@ -4,8 +4,6 @@
  * Assignment 3, Module 3
  */
 
-package Assig3;
-
 import java.util.Scanner;
 
 public class Assig3
@@ -73,9 +71,7 @@ public class Assig3
          System.out.println("\nUnshuffled deck:");
          for (k = 0; k < numHands; k++)
          {
-
             System.out.println(hands[k]);
-
          }
 
          // shuffled
@@ -105,7 +101,6 @@ public class Assig3
             System.out.println(hands[k].toString());
 
          }
-
       }
    }
 
@@ -276,7 +271,7 @@ public class Assig3
 }
 
 // ------------------------ CARD CLASS ----------------------------------
-
+// Class for the individual cards in a deck of cards
 class Card
 {
 
@@ -418,8 +413,9 @@ class Card
          return true;
       }
 
-      if (obj == null || getClass() != obj.getClass() || this.value != other.value || this.errorFlag != other.errorFlag
-            || this.suit != other.suit)
+      if (obj == null || getClass() != obj.getClass() || this.value != 
+         other.value || this.errorFlag != other.errorFlag || 
+         this.suit != other.suit)
       {
          return false;
       }
@@ -451,7 +447,7 @@ class Card
 }
 
 // ------------------------ HAND CLASS ----------------------------------
-
+// Class for a hand a player holds in a card game
 class Hand
 {
    /** The max cards in the hand */
@@ -491,17 +487,11 @@ class Hand
    {
       if (numCards < MAX_CARDS)
       {
-         // Makes a copy of new card and stores in index. Then increments numCards.
+         // Makes a copy of new card & stores in index.Then increments numCards.
          myCards[numCards++] = new Card(card.getValue(), card.getSuit());
 
          if (numCards == MAX_CARDS) // The hand is full
          {
-            // TODO takeCard should not print to screen. It should just return true/false
-            // TODO printing to the screen should be handled in the main() part of the
-            // program
-            // TODO Changes here will affect main() as well and will need changes in main()
-            // too
-            // System.out.println("\nHand Full\nAfter Deal");
             return false;
          }
       }
@@ -513,8 +503,7 @@ class Hand
     * 
     * @return a deep copy of the card
     */
-   Card playCard() // TODO is this deleting from the array for cards? Card values still left in
-                   // array
+   Card playCard() 
    {
       Card errorCard = new Card('w', Card.Suit.SPADES);
       if (numCards == 0)
@@ -564,9 +553,9 @@ class Hand
    }
 
    /**
-    * Accessor for an individual card. Returns a card with errorFlag = true if k is
-    * bad
-    * 
+    * Accessor for an individual card. Returns a card with errorFlag 
+    * = true if k is bad
+    *
     * @param k
     *           : the index of the card in the array
     * @return the card
@@ -582,7 +571,7 @@ class Hand
 }
 
 // ------------------------ DECK CLASS ----------------------------------
-
+// Allows for processing of a deck of cards
 class Deck
 {
 
@@ -688,6 +677,7 @@ class Deck
          return cards[--topCard];
    }
 
+   
    public Card inspectCard(int k)
    {
       Card error = new Card('s', Card.Suit.DIAMONDS);
@@ -698,6 +688,7 @@ class Deck
          return cards[k];
    }
 
+   /**Method returns number of cards*/
    public int getNumCards()
    {
       return topCard;
