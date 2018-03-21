@@ -547,35 +547,37 @@ class Deck
       init(1);
    }
 
-   public static void allocateMasterPack()
-   {
-      int k = 0, j = 0;
-      Card.Suit suit;
-      char value;
-
-      boolean firstTime = true;
-      if (!firstTime)
-         return;
-      firstTime = false;
+/*
+    * Creates a masterPack of 52 unique cards with all the valid 
+    * possible unique combinations of the card values and suits
+    * Checks to ensure that it has not been called before by 
+    * checking if the masterPack instance variable array was
+    * already initialized. It does not execute if masterPack
+    * was already initialized. 
+    * note if masterPack[] contains only null values, it contains no
+    * objects and therefore must not have been initialized. 
+    */  
+   private static void allocateMasterPack()
+   {   
+      int masterPackIndex = 0;
       
-      for (k = 0; k < Card.Suit.values().length; k++)
+      //Check if masterPack was already initialized, and return if it was
+      if(masterPack[masterPackIndex] != null) //masterPack was initialized 
       {
-         suit = Card.Suit.values()[k];
-
-         masterPack[13 * k] = new Card('A', suit);
-         for (value = '2', j = 1; value <= '9'; value++, j++)
-         {
-            masterPack[13 * k + j] = new Card(value, suit);
-            masterPack[13 * k + 9] = new Card('T', suit);
-            masterPack[13 * k + 10] = new Card('J', suit);
-            masterPack[13 * k + 11] = new Card('Q', suit);
-            masterPack[13 * k + 12] = new Card('K', suit);
-         }
+         return; 
       }
-      // System.out.println("\n----------------masterpack-------------");
-      // for (Card c : masterPack) {
-      // System.out.println(c);
-      // }
+      else // masterPack was not initialized
+      {          
+         // Assign cards with all unique combos of suits & values to masterPack
+         for(Card.Suit suit : Card.Suit.values())
+         {  
+            for(char validCardValue : Card.VALID_CARD_VALUES)
+            {
+               masterPack[masterPackIndex] = new Card(validCardValue, suit);
+               masterPackIndex++;
+            }
+         }        
+      }          
 
    }
 
