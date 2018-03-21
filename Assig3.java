@@ -4,18 +4,14 @@
  * Assignment 3, Module 3
  */
 
-package Assig3;
-
 import java.util.Scanner;
 
 public class Assig3
 {
-
    static Scanner sc;
 
    public static void main(String[] args)
    {
-
       System.out.println("-------------------Testing Card Class------------------------");
 
       testCard();
@@ -33,6 +29,7 @@ public class Assig3
 
       final int MAX_HANDS = 10;
       Hand[] hands = new Hand[MAX_HANDS];
+
       for (int i = 0; i < MAX_HANDS; i++)
       {
          hands[i] = new Hand();
@@ -42,7 +39,7 @@ public class Assig3
       Deck deck = new Deck(1);
       Scanner scann = new Scanner(System.in);
 
-      // input
+      // Get user input.
       while (true)
       {
 
@@ -52,13 +49,12 @@ public class Assig3
          if (numHands < 1 || numHands > MAX_HANDS)
          {
             System.out.println("Program exiting");
-
             return;
          }
 
          System.out.println(numHands + " hands:");
 
-         // unshuffled
+         // Display the deck before shuffling.
          while (deck.getNumCards() > 0)
          {
             for (k = 0; k < numHands; k++)
@@ -73,18 +69,16 @@ public class Assig3
          System.out.println("\nUnshuffled deck:");
          for (k = 0; k < numHands; k++)
          {
-
             System.out.println(hands[k]);
 
          }
 
-         // shuffled
+         // Display the deck after shuffling.
          deck.init(1);
          deck.shuffle();
 
-         // clear hands
+         // Clear the hand.
          for (k = 0; k < numHands; k++)
-
             hands[k].resetHand();
 
          while (deck.getNumCards() > 0)
@@ -108,35 +102,6 @@ public class Assig3
 
       }
    }
-
-   /**
-    * Deals cards to each hand, one card per hand at a time, until the deck is
-    * empty
-    * 
-    * @parm deck - the deck that is being dealt from
-    * @param hands
-    *           - the array of Hand objects that the deck is being dealt into
-    */
-   /*
-    * private static void dealCards(Deck deck, Hand [] hands) { Card card;
-    * 
-    * while (deck.getNumCards() != 0) { for (Hand hand : hands) { card =
-    * deck.dealCard(); if (!card.getErrorFlag()) { hand.takeCard(card); } } }
-    * 
-    * }
-    */
-
-   /**
-    * Used to display an array of hands
-    * 
-    * @param hands
-    *           - the array of Hand objects that will be displayed
-    */
-   /*
-    * private static void displayHands(Hand [] hands) { for (int i = 0; i <
-    * hands.length; i++) { System.out.printf("\n----- Hand %d -----" + "\n%s\n",
-    * i+1, hands[i].toString()); } }
-    */
 
    private static void testCard()
    {
@@ -219,16 +184,13 @@ public class Assig3
 
       int k = 0, numHands;
       Deck deck = new Deck(1);
-
+      
       sc = new Scanner(System.in);
 
-      // Input
-      // do {
       System.out.print("How many hands? (1 - " + MAX_HANDS + ", please) ");
 
       numHands = sc.nextInt();
       System.out.println(numHands + " hands:");
-      // } while (numHands < 1 || numHands > MAX_HANDS);
 
       // Unshuffled
       while (deck.getNumCards() > 0)
@@ -496,12 +458,6 @@ class Hand
 
          if (numCards == MAX_CARDS) // The hand is full
          {
-            // TODO takeCard should not print to screen. It should just return true/false
-            // TODO printing to the screen should be handled in the main() part of the
-            // program
-            // TODO Changes here will affect main() as well and will need changes in main()
-            // too
-            // System.out.println("\nHand Full\nAfter Deal");
             return false;
          }
       }
@@ -585,7 +541,6 @@ class Hand
 
 class Deck
 {
-
    public final static int MAX_CARDS = 52;
    private static Card[] masterPack = new Card[MAX_CARDS];
 
@@ -621,8 +576,9 @@ class Deck
       if (masterPack[masterPackIndex] != null) // masterPack was initialized
       {
          return;
-      } else // masterPack was not initialized
+      } else
       {
+         // masterPack was not initialized
          // Assign cards with all unique combos of suits & values to masterPack
          for (Card.Suit suit : Card.Suit.values())
          {
@@ -655,11 +611,6 @@ class Deck
       }
       this.numPacks = numPacks;
       topCard = numPacks * 52;
-
-      // System.out.println("-----init---------------------" + topCard);
-      // for (Card c : cards) {
-      // System.out.println(c);
-      // }
    }
 
    public void shuffle()
@@ -704,3 +655,143 @@ class Deck
    }
 
 }
+
+/*
+-------------------Testing Card Class------------------------
+A of Spades
+** illegal **
+J of Clubs
+
+** illegal **
+Q of Spades
+J of Clubs
+------------------------End of  Test------------------------
+
+-------------------Testing Hand  Class------------------------
+
+Hand = ( 2 of Diamonds, 4 of Hearts, 5 of Spades, 5 of Spades, T of Clubs, 2 of Diamonds, 
+4 of Hearts, 5 of Spades, 5 of Spades, T of Clubs, 2 of Diamonds, 4 of Hearts, 
+5 of Spades, 5 of Spades, T of Clubs, 2 of Diamonds, 4 of Hearts, 5 of Spades, 
+5 of Spades, T of Clubs, 2 of Diamonds, 4 of Hearts, 5 of Spades, 5 of Spades, 
+T of Clubs, 2 of Diamonds, 4 of Hearts, 5 of Spades, 5 of Spades, T of Clubs, 
+2 of Diamonds, 4 of Hearts, 5 of Spades, 5 of Spades, T of Clubs, 2 of Diamonds, 
+4 of Hearts, 5 of Spades, 5 of Spades, T of Clubs, 2 of Diamonds, 4 of Hearts, 
+5 of Spades, 5 of Spades, T of Clubs, 2 of Diamonds, 4 of Hearts, 5 of Spades, 
+5 of Spades, T of Clubs )
+
+Testing inspectCard()
+2 of Diamonds
+** illegal **
+Playing T of Clubs
+Playing 5 of Spades
+Playing 5 of Spades
+Playing 4 of Hearts
+Playing 2 of Diamonds
+Playing T of Clubs
+Playing 5 of Spades
+Playing 5 of Spades
+Playing 4 of Hearts
+Playing 2 of Diamonds
+Playing T of Clubs
+Playing 5 of Spades
+Playing 5 of Spades
+Playing 4 of Hearts
+Playing 2 of Diamonds
+Playing T of Clubs
+Playing 5 of Spades
+Playing 5 of Spades
+Playing 4 of Hearts
+Playing 2 of Diamonds
+Playing T of Clubs
+Playing 5 of Spades
+Playing 5 of Spades
+Playing 4 of Hearts
+Playing 2 of Diamonds
+Playing T of Clubs
+Playing 5 of Spades
+Playing 5 of Spades
+Playing 4 of Hearts
+Playing 2 of Diamonds
+Playing T of Clubs
+Playing 5 of Spades
+Playing 5 of Spades
+Playing 4 of Hearts
+Playing 2 of Diamonds
+Playing T of Clubs
+Playing 5 of Spades
+Playing 5 of Spades
+Playing 4 of Hearts
+Playing 2 of Diamonds
+Playing T of Clubs
+Playing 5 of Spades
+Playing 5 of Spades
+Playing 4 of Hearts
+Playing 2 of Diamonds
+Playing T of Clubs
+Playing 5 of Spades
+Playing 5 of Spades
+Playing 4 of Hearts
+Playing 2 of Diamonds
+
+After playing all cards
+
+Hand = (  )
+-------------------End of Test------------------------
+-------------------Testing Deck  Class------------------------
+How many hands? (1 - 10, please) 8
+8 hands:
+
+Unshuffled deck:
+
+Hand = ( A of Spades, 6 of Spades, J of Hearts, 3 of Hearts, 8 of Diamonds, K of Clubs, 
+5 of Clubs )
+
+Hand = ( K of Spades, 5 of Spades, T of Hearts, 2 of Hearts, 7 of Diamonds, Q of Clubs, 
+4 of Clubs )
+
+Hand = ( Q of Spades, 4 of Spades, 9 of Hearts, A of Diamonds, 6 of Diamonds, J of Clubs, 
+3 of Clubs )
+
+Hand = ( J of Spades, 3 of Spades, 8 of Hearts, K of Diamonds, 5 of Diamonds, T of Clubs, 
+2 of Clubs )
+
+Hand = ( T of Spades, 2 of Spades, 7 of Hearts, Q of Diamonds, 4 of Diamonds, 9 of Clubs )
+
+
+Hand = ( 9 of Spades, A of Hearts, 6 of Hearts, J of Diamonds, 3 of Diamonds, 8 of Clubs )
+
+
+Hand = ( 8 of Spades, K of Hearts, 5 of Hearts, T of Diamonds, 2 of Diamonds, 7 of Clubs )
+
+
+Hand = ( 7 of Spades, Q of Hearts, 4 of Hearts, 9 of Diamonds, A of Clubs, 6 of Clubs )
+
+
+
+ Shuffled deck:
+
+Hand = ( 4 of Clubs, 8 of Spades, K of Spades, 5 of Spades, 2 of Clubs, Q of Hearts, 
+T of Spades )
+
+Hand = ( T of Hearts, K of Clubs, 9 of Diamonds, 6 of Clubs, 2 of Spades, 9 of Clubs, 
+3 of Spades )
+
+Hand = ( 9 of Spades, 8 of Hearts, 2 of Hearts, K of Hearts, A of Clubs, 8 of Clubs, 
+A of Diamonds )
+
+Hand = ( 3 of Clubs, J of Spades, T of Clubs, 3 of Hearts, K of Diamonds, Q of Clubs, 
+6 of Spades )
+
+Hand = ( J of Clubs, Q of Spades, 4 of Spades, J of Hearts, 8 of Diamonds, 7 of Diamonds )
+
+
+Hand = ( 3 of Diamonds, 4 of Diamonds, J of Diamonds, Q of Diamonds, T of Diamonds, 9 of Hearts )
+
+
+Hand = ( 7 of Clubs, A of Hearts, 4 of Hearts, 5 of Diamonds, 6 of Diamonds, 5 of Clubs )
+
+
+Hand = ( 7 of Spades, 7 of Hearts, 5 of Hearts, 2 of Diamonds, 6 of Hearts, A of Spades )
+
+-------------------End of Test------------------------
+*/
