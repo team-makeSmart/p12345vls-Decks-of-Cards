@@ -20,7 +20,6 @@ public class Assig3
 
       
       Hand[] hands = new Hand[MAX_HANDS];
-
       for (int i = 0; i < MAX_HANDS; i++)
       {
          hands[i] = new Hand();
@@ -106,9 +105,9 @@ public class Assig3
     */
    private static void testMsg(String className, TestMsgOption option) {
 	   if (option == TestMsgOption.OPEN) {
-		   System.out.printf("-------------------Testing %s Class------------------------", className);
+		   System.out.printf("\n-------------------Testing %s Class------------------------\n", className);
 	   } else if (option == TestMsgOption.CLOSE) {
-		   System.out.printf("--------------- End of %s Class Test ----------------------", className);
+		   System.out.printf("\n--------------- End of %s Class Test ----------------------\n", className);
 	   }
 	   
    }
