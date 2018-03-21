@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Assig3
 {
    static Scanner scann;
+   final static int MAX_HANDS = 10;
 
    public static void main(String[] args)
    {
@@ -17,7 +18,7 @@ public class Assig3
       testDeck();
       
 
-      final int MAX_HANDS = 10;
+      
       Hand[] hands = new Hand[MAX_HANDS];
 
       for (int i = 0; i < MAX_HANDS; i++)
@@ -194,7 +195,7 @@ public class Assig3
    {
 	  testMsg("Deck", TestMsgOption.CLOSE);
 	   
-      final int MAX_HANDS = 10;
+	  
       Hand[] hands = new Hand[MAX_HANDS];
       for (int i = 0; i < MAX_HANDS; i++)
       {
