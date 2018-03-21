@@ -70,7 +70,6 @@ public class Assig3
          for (k = 0; k < numHands; k++)
          {
             System.out.println(hands[k]);
-
          }
 
          // Display the deck after shuffling.
@@ -99,7 +98,6 @@ public class Assig3
             System.out.println(hands[k].toString());
 
          }
-
       }
    }
 
@@ -238,7 +236,7 @@ public class Assig3
 }
 
 // ------------------------ CARD CLASS ----------------------------------
-
+// Class for the individual cards in a deck of cards
 class Card
 {
 
@@ -380,8 +378,9 @@ class Card
          return true;
       }
 
-      if (obj == null || getClass() != obj.getClass() || this.value != other.value || this.errorFlag != other.errorFlag
-            || this.suit != other.suit)
+      if (obj == null || getClass() != obj.getClass() || this.value != 
+         other.value || this.errorFlag != other.errorFlag || 
+         this.suit != other.suit)
       {
          return false;
       }
@@ -413,7 +412,7 @@ class Card
 }
 
 // ------------------------ HAND CLASS ----------------------------------
-
+// Class for a hand a player holds in a card game
 class Hand
 {
    /** The max cards in the hand */
@@ -453,7 +452,7 @@ class Hand
    {
       if (numCards < MAX_CARDS)
       {
-         // Makes a copy of new card and stores in index. Then increments numCards.
+         // Makes a copy of new card & stores in index.Then increments numCards.
          myCards[numCards++] = new Card(card.getValue(), card.getSuit());
 
          if (numCards == MAX_CARDS) // The hand is full
@@ -469,8 +468,7 @@ class Hand
     * 
     * @return a deep copy of the card
     */
-   Card playCard() // TODO is this deleting from the array for cards? Card values still left in
-                   // array
+   Card playCard() 
    {
       Card errorCard = new Card('w', Card.Suit.SPADES);
       if (numCards == 0)
@@ -520,9 +518,9 @@ class Hand
    }
 
    /**
-    * Accessor for an individual card. Returns a card with errorFlag = true if k is
-    * bad
-    * 
+    * Accessor for an individual card. Returns a card with errorFlag 
+    * = true if k is bad
+    *
     * @param k
     *           : the index of the card in the array
     * @return the card
@@ -538,7 +536,7 @@ class Hand
 }
 
 // ------------------------ DECK CLASS ----------------------------------
-
+// Allows for processing of a deck of cards
 class Deck
 {
    public final static int MAX_CARDS = 52;
@@ -639,6 +637,7 @@ class Deck
          return cards[--topCard];
    }
 
+   
    public Card inspectCard(int k)
    {
       Card error = new Card('s', Card.Suit.DIAMONDS);
@@ -649,6 +648,7 @@ class Deck
          return cards[k];
    }
 
+   /**Method returns number of cards*/
    public int getNumCards()
    {
       return topCard;
