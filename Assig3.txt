@@ -4,83 +4,88 @@
  * Assignment 3, Module 3
  */
 
-import java.util.Scanner;
+import java.util.Scanner; //Allows for scanner objects get keyboard input
 
 public class Assig3
 {
-   static Scanner scann;
-   final static int MAX_HANDS = 10;
+   static Scanner scann; //Object to receive keyboard input 
+   final static int MAX_HANDS = 10; //Max hands allowed for players
 
    public static void main(String[] args)
-   {
-      testCard();
-      testHand();
-      testDeck();
+   {  
+      // Run tests of classes
+      testCard(); // Card class test
+      testHand(); // Hand class test
+      testDeck(); // Deck class test
       
       // Initialize the scanner
       scann = new Scanner(System.in);
- 		
+      
       int numPlayers = 0;
-      Deck deck = new Deck();
- 		
+      Deck deck = new Deck(); //Create a new deck, defaulted to one deck
+      
       // Get the number of players from the user
       while (numPlayers < 1 || numPlayers > 10) 
       {
-         System.out.println("\nPlease select the number of players (from 1 to 10):");
+         System.out.println("\nPlease select the number of players" + 
+            " (from 1 to 10):");
          numPlayers = scann.nextInt();
       }
- 		
+      
       // Create a new (empty) hand for each player
       Hand[] hands = new Hand[numPlayers];
       for (int i = 0; i < hands.length; i++) 
       {
          hands[i] = new Hand();
       }
- 		
+      
       // ---- UNSHUFFLED HAND ----
- 		
+      
       // Deal the cards
       dealCards(deck, hands);
- 		
-      System.out.println("\n---------- Here are your hands from an unshuffled deck ----------");
+      
+      System.out.println("\n---------- Here are your hands" + 
+         " from an unshuffled deck ----------");
  
       // Display each hand
       displayHands(hands);
- 		
+      
       // Reset each hand
       for (Hand hand : hands) 
       {
          hand.resetHand();
       }
- 		
+      
       // ---- SHUFFLED HAND ----
       
       // Reset the deck and shuffle it
       deck = new Deck();
       deck.shuffle();
- 		
+      
       // Deal the cards
       dealCards(deck, hands);
- 		
-      System.out.println("\n---------- Here are your hands from a shuffled deck ----------");
- 		
+      
+      System.out.println("\n---------- Here are your hands from a " + 
+         "shuffled deck ----------");
+      
       // Display each hand
       displayHands(hands);
- 		
+      
       // Close the scanner
       scann.close();
    }
-   	
-   	
+      
+      
    /**
-    * Deals cards to each hand, one card per hand at a time, until the deck is empty
+    * Deals cards to each hand, one card per hand at a time, 
+    * until the deck is empty
     * @param deck - the deck that is being dealt from
-    * @param hands - the array of Hand objects that the deck is being dealt into
+    * @param hands - array of Hand objects that the deck is being dealt into
     */
    private static void dealCards(Deck deck, Hand [] hands) 
    {
       Card card;
-   		
+         
       while (deck.getNumCards() != 0) 
       {
          for (Hand hand : hands) 
@@ -91,9 +96,9 @@ public class Assig3
                hand.takeCard(card);
             }
          }
-      }		
+      }     
    }
-   	
+      
    /**
     * Used to display an array of hands
     * @param hands - the array of Hand objects that will be displayed
@@ -104,10 +109,10 @@ public class Assig3
       {
          System.out.printf("\n----- Hand %d -----"
             + "\n%s\n", i+1, hands[i].toString());
-      }	
+      }  
    }
-      
-   private enum TestMsgOption { OPEN, CLOSE }; // used for the method below
+  
+   private enum TestMsgOption { OPEN, CLOSE }; // Used for the method below
    
    /**
     * Used to format the output
@@ -118,19 +123,24 @@ public class Assig3
    {
       if (option == TestMsgOption.OPEN) 
       {
-         System.out.printf("\n-------------------Testing %s Class------------------------\n\n", className);
+         System.out.printf("\n-------------------Testing %s Class-" + 
+            "-----------------------\n\n", className);
       } 
       else if (option == TestMsgOption.CLOSE) 
       {
-		   System.out.printf("--------------- End of %s Class Test ----------------------\n", className);
+         System.out.printf("--------------- End of %s Class Test ---" +
+            "-------------------\n", className);
       }   
    }
    
+   /**
+    * Method to test the Card class
+    * */
    private static void testCard()
    {
       // Display opening message
       testMsg("Card", TestMsgOption.OPEN);
-	   
+      
       // Create card objects for testing
       Card card1 = new Card('A', Card.Suit.SPADES);
       Card card2 = new Card('s', Card.Suit.SPADES);
@@ -158,11 +168,14 @@ public class Assig3
       testMsg("Card", TestMsgOption.CLOSE);
    }
 
+   /**
+    * Method to test the Hand class
+    * */
    private static void testHand()
    {
       // Display opening message
       testMsg("Hand", TestMsgOption.OPEN);
-	   
+      
       // Create a hand object and 4 card objects
       Hand hand1 = new Hand();
       Card card1 = new Card('2', Card.Suit.DIAMONDS);
@@ -208,39 +221,43 @@ public class Assig3
       testMsg("Hand", TestMsgOption.CLOSE);
    }
 
+   /**
+    * Method to test the Deck class
+    * */
    private static void testDeck()
    {
-	  // Display opening message
-	  testMsg("Deck", TestMsgOption.OPEN);
-	  
-	  // Double pack - Unshuffled
-	  Deck deck = new Deck(2);
-	  System.out.println("---- Double pack (Unshuffled) ----\n");
-	  printDeck(deck);
-	  
-	  // Double pack - Shuffled
-	  deck = new Deck(2); 
-	  deck.shuffle();
-	  System.out.println("---- Double pack (Shuffled) ----\n");
-	  printDeck(deck);
-	  
-	  // Single pack - Unshuffled
-	  deck = new Deck(1);
-	  System.out.println("---- Single pack (Unshuffled) ---- \n");
-	  printDeck(deck);
-	  
-	  // Single pack - Shuffled
-	  deck = new Deck(1); 
-	  deck.shuffle();
-	  System.out.println("---- Single pack (Shuffled) ----\n");
-	  printDeck(deck);
-	  	
-	  // Display closing message
+     // Display opening message
+     testMsg("Deck", TestMsgOption.OPEN);
+     
+     // Double pack - Unshuffled
+     Deck deck = new Deck(2);
+     System.out.println("---- Double pack (Unshuffled) ----\n");
+     printDeck(deck);
+     
+     // Double pack - Shuffled
+     deck = new Deck(2); 
+     deck.shuffle();
+     System.out.println("---- Double pack (Shuffled) ----\n");
+     printDeck(deck);
+     
+     // Single pack - Unshuffled
+     deck = new Deck(1);
+     System.out.println("---- Single pack (Unshuffled) ---- \n");
+     printDeck(deck);
+     
+     // Single pack - Shuffled
+     deck = new Deck(1); 
+     deck.shuffle();
+     System.out.println("---- Single pack (Shuffled) ----\n");
+     printDeck(deck);
+      
+     // Display closing message
       testMsg("Deck", TestMsgOption.CLOSE);
    }
    
    /**
-    * Helper method for the testDeck class, since the deck needs to be printed 4 times
+    * Helper method for the testDeck class, since the deck 
+    * needs to be printed 4 times
     * Prints out the entire deck to the console
     * @param deck - the deck that will be printed
     */
@@ -255,19 +272,14 @@ public class Assig3
          if (i % 5 == 0) 
             outString += "\n";
       }
-		    
+          
       System.out.println(outString + "\n\n");
    }
       
 }
    
-   
-   
-   
-  
-
 // ------------------------ CARD CLASS ----------------------------------
-
+// Card class is for objects that represent an individual playing card
 class Card
 {
 
@@ -290,8 +302,8 @@ class Card
    private Suit suit;
 
    /**
-    * Error flag, keeps track of invalid entries. If true, card object does not
-    * have valid data
+    * Error flag, keeps track of invalid entries. If true, the 
+    * card object does not have valid data
     */
    private boolean errorFlag;
 
@@ -307,10 +319,10 @@ class Card
    /**
     * Constructor Instantiates a new card, by calling the set() method
     * 
-    * @param value
-    *           the value
+    * @param value 
+    *    the value
     * @param suit
-    *           the suit
+    *    the suit
     */
    public Card(char value, Suit suit)
    {
@@ -346,11 +358,10 @@ class Card
 
    /**
     * Sets the value and the suit
-    * 
     * @param value
-    *           the value
+    *    the value
     * @param suit
-    *           the suit
+    *    the suit
     * @return true, if successful
     */
    public boolean set(char value, Suit suit)
@@ -368,7 +379,6 @@ class Card
 
    /**
     * Gets the errorFlag
-    * 
     * @return the error flag
     */
    public boolean getErrorFlag()
@@ -378,7 +388,6 @@ class Card
 
    /**
     * Gets the suit
-    * 
     * @return the suit
     */
    public Suit getSuit()
@@ -387,8 +396,7 @@ class Card
    }
 
    /**
-    * Gets the value
-    * 
+    * Gets the value 
     * @return the value
     */
    public char getValue()
@@ -409,8 +417,9 @@ class Card
          return true;
       }
 
-      if (obj == null || getClass() != obj.getClass() || this.value != other.value || this.errorFlag != other.errorFlag
-            || this.suit != other.suit)
+      if (obj == null || getClass() != obj.getClass() || this.value != 
+         other.value || this.errorFlag != other.errorFlag || 
+         this.suit != other.suit)
       {
          return false;
       }
@@ -420,7 +429,6 @@ class Card
 
    /**
     * Checks if is the values entered by the user are valid.
-    * 
     * @param value
     *           the value
     * @param suit
@@ -433,7 +441,7 @@ class Card
       {
          if (value == val)
          {
-            return true; // The value argument found in VALID_CARD_VALUES array
+            return true; // The value arg is found in VALID_CARD_VALUES array
          }
       }
       return false; // The value argument was not found
@@ -442,7 +450,7 @@ class Card
 }
 
 // ------------------------ HAND CLASS ----------------------------------
-
+// Hand class is used for the hand a player (or players) have in a card game
 class Hand
 {
    /** The max cards in the hand */
@@ -473,7 +481,6 @@ class Hand
 
    /**
     * Adds a card to the next available position in the myCards array
-    * 
     * @param card
     *           the card
     * @return true, if successful
@@ -482,7 +489,7 @@ class Hand
    {
       if (numCards < MAX_CARDS)
       {
-         // Makes a copy of new card and stores in index. Then increments numCards.
+         // Makes copy of new card and stores in index. & Increments numCards.
          myCards[numCards++] = new Card(card.getValue(), card.getSuit());
 
          if (numCards == MAX_CARDS) // The hand is full
@@ -495,7 +502,6 @@ class Hand
 
    /**
     * Returns and removes the card in the top occupied position of the array
-    * 
     * @return a deep copy of the card
     */
    Card playCard()
@@ -539,7 +545,6 @@ class Hand
 
    /**
     * Gets the number of cards.
-    * 
     * @return the number of cards
     */
    public int getNumOfCards()
@@ -548,12 +553,12 @@ class Hand
    }
 
    /**
-    * Accessor for an individual card. Returns a card with errorFlag = true if k is
-    * bad
-    * 
-    * @param k
-    *           : the index of the card in the array
-    * @return the card
+    * Accessor for an individual card. Returns a card with 
+    * errorFlag = true if k is bad
+    * @param k 
+    *    the index of the card in the array
+    * @return 
+    *    the card
     */
    Card inspectCard(int k)
    {
