@@ -13,93 +13,100 @@ public class Assig3
 
    public static void main(String[] args)
    {
-	   testCard();
-	   testHand();
-	   testDeck();
+      testCard();
+      testHand();
+      testDeck();
       
-	   // Initialize the scanner
-	   scann = new Scanner(System.in);
+      // Initialize the scanner
+      scann = new Scanner(System.in);
  		
-	   int numPlayers = 0;
-	   Deck deck = new Deck();
+      int numPlayers = 0;
+      Deck deck = new Deck();
  		
-	   // Get the number of players from the user
-	   while (numPlayers < 1 || numPlayers > 10) {
-		   System.out.println("\nPlease select the number of players (from 1 to 10):");
-		   numPlayers = scann.nextInt();
-	   }
+      // Get the number of players from the user
+      while (numPlayers < 1 || numPlayers > 10) 
+      {
+         System.out.println("\nPlease select the number of players (from 1 to 10):");
+         numPlayers = scann.nextInt();
+      }
  		
-	   // Create a new (empty) hand for each player
-	   Hand[] hands = new Hand[numPlayers];
-	   for (int i = 0; i < hands.length; i++) {
-		   hands[i] = new Hand();
-	   }
+      // Create a new (empty) hand for each player
+      Hand[] hands = new Hand[numPlayers];
+      for (int i = 0; i < hands.length; i++) 
+      {
+         hands[i] = new Hand();
+      }
  		
-	   // ---- UNSHUFFLED HAND ----
+      // ---- UNSHUFFLED HAND ----
  		
-	   // Deal the cards
-	   dealCards(deck, hands);
+      // Deal the cards
+      dealCards(deck, hands);
  		
-	   System.out.println("\n---------- Here are your hands from an unshuffled deck ----------");
+      System.out.println("\n---------- Here are your hands from an unshuffled deck ----------");
+ 
+      // Display each hand
+      displayHands(hands);
  		
-	   // Display each hand
-	   displayHands(hands);
+      // Reset each hand
+      for (Hand hand : hands) 
+      {
+         hand.resetHand();
+      }
  		
-	   // Reset each hand
-	   for (Hand hand : hands) {
-		   hand.resetHand();
-	   }
- 		
-	   // ---- SHUFFLED HAND ----
- 		
-	   // Reset the deck and shuffle it
-	   deck = new Deck();
-	   deck.shuffle();
- 		
-	   // Deal the cards
-	   dealCards(deck, hands);
- 		
-	   System.out.println("\n---------- Here are your hands from a shuffled deck ----------");
- 		
-	   // Display each hand
-	   displayHands(hands);
- 		
-	   // Close the scanner
-	   scann.close();
-   	}
-   	
-   	
-   	/**
-   	 * Deals cards to each hand, one card per hand at a time, until the deck is empty
-   	 * @param deck - the deck that is being dealt from
-   	 * @param hands - the array of Hand objects that the deck is being dealt into
-   	 */
-   	private static void dealCards(Deck deck, Hand [] hands) {
-   		Card card;
-   		
-   		while (deck.getNumCards() != 0) {
-   			for (Hand hand : hands) {
-   				card = deck.dealCard();
-   				if (!card.getErrorFlag()) {
-   					hand.takeCard(card);
-   				}
-   			}
-   		}
-   		
-   	}
-   	
-   	/**
-   	 * Used to display an array of hands
-   	 * @param hands - the array of Hand objects that will be displayed
-   	 */
-   	private static void displayHands(Hand [] hands) {
-   		for (int i = 0; i < hands.length; i++) {
-   				System.out.printf("\n----- Hand %d -----"
-   					+ "\n%s\n", i+1, hands[i].toString());
-   		}	
-   	}
+      // ---- SHUFFLED HAND ----
       
-   
+      // Reset the deck and shuffle it
+      deck = new Deck();
+      deck.shuffle();
+ 		
+      // Deal the cards
+      dealCards(deck, hands);
+ 		
+      System.out.println("\n---------- Here are your hands from a shuffled deck ----------");
+ 		
+      // Display each hand
+      displayHands(hands);
+ 		
+      // Close the scanner
+      scann.close();
+   }
+   	
+   	
+   /**
+    * Deals cards to each hand, one card per hand at a time, until the deck is empty
+    * @param deck - the deck that is being dealt from
+    * @param hands - the array of Hand objects that the deck is being dealt into
+    */
+   private static void dealCards(Deck deck, Hand [] hands) 
+   {
+      Card card;
+   		
+      while (deck.getNumCards() != 0) 
+      {
+         for (Hand hand : hands) 
+         {
+            card = deck.dealCard();
+            if (!card.getErrorFlag()) 
+            {
+               hand.takeCard(card);
+            }
+         }
+      }		
+   }
+   	
+   /**
+    * Used to display an array of hands
+    * @param hands - the array of Hand objects that will be displayed
+    */
+   private static void displayHands(Hand [] hands) 
+   {
+      for (int i = 0; i < hands.length; i++) 
+      {
+         System.out.printf("\n----- Hand %d -----"
+            + "\n%s\n", i+1, hands[i].toString());
+      }	
+   }
+      
    private enum TestMsgOption { OPEN, CLOSE }; // used for the method below
    
    /**
@@ -107,19 +114,22 @@ public class Assig3
     * @param className - the name of the class
     * @param option - whether its an opening or closing message
     */
-   private static void testMsg(String className, TestMsgOption option) {
-	   if (option == TestMsgOption.OPEN) {
-		   System.out.printf("\n-------------------Testing %s Class------------------------\n\n", className);
-	   } else if (option == TestMsgOption.CLOSE) {
+   private static void testMsg(String className, TestMsgOption option) 
+   {
+      if (option == TestMsgOption.OPEN) 
+      {
+         System.out.printf("\n-------------------Testing %s Class------------------------\n\n", className);
+      } 
+      else if (option == TestMsgOption.CLOSE) 
+      {
 		   System.out.printf("--------------- End of %s Class Test ----------------------\n", className);
-	   }
-	   
+      }   
    }
-
+   
    private static void testCard()
    {
-	  // Display opening message
-	  testMsg("Card", TestMsgOption.OPEN);
+      // Display opening message
+      testMsg("Card", TestMsgOption.OPEN);
 	   
       // Create card objects for testing
       Card card1 = new Card('A', Card.Suit.SPADES);
@@ -144,15 +154,14 @@ public class Assig3
       System.out.println(card5.toString());
       System.out.println(card6.toString());
       
-      
       // Display closing message
       testMsg("Card", TestMsgOption.CLOSE);
    }
 
    private static void testHand()
    {
-	  // Display opening message
-	  testMsg("Hand", TestMsgOption.OPEN);
+      // Display opening message
+      testMsg("Hand", TestMsgOption.OPEN);
 	   
       // Create a hand object and 4 card objects
       Hand hand1 = new Hand();
@@ -225,8 +234,7 @@ public class Assig3
 	  deck.shuffle();
 	  System.out.println("---- Single pack (Shuffled) ----\n");
 	  printDeck(deck);
-	  
-	
+	  	
 	  // Display closing message
       testMsg("Deck", TestMsgOption.CLOSE);
    }
@@ -236,15 +244,19 @@ public class Assig3
     * Prints out the entire deck to the console
     * @param deck - the deck that will be printed
     */
-   private static void printDeck(Deck deck) {
-	   String outString ="";
-	   for (int i = deck.getNumCards(); i > 0; i--) {
-		   outString += deck.dealCard().toString();
-		   if (i > 1) outString += ", ";
-		   if (i % 5 == 0) outString += "\n";
-	   }
+   private static void printDeck(Deck deck) 
+   {
+      String outString ="";
+      for (int i = deck.getNumCards(); i > 0; i--) 
+      {
+         outString += deck.dealCard().toString();
+         if (i > 1) 
+            outString += ", ";
+         if (i % 5 == 0) 
+            outString += "\n";
+      }
 		    
-		  System.out.println(outString + "\n\n");
+      System.out.println(outString + "\n\n");
    }
       
 }
@@ -512,7 +524,7 @@ class Hand
             returnVal += myCards[i].toString();
             if ((counter + 1) != numCards)
                returnVal += ", ";
-            	counter++;
+            counter++;
             // Check if reached end of hand
             if (counter == numCards)
                returnVal += " )";
