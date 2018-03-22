@@ -619,7 +619,7 @@ class Deck
    /**
     * Creates a masterPack of 52 unique cards with all the valid possible unique
     * combinations of the card values and suits Checks to ensure that it has not
-    * been called before by checking if the masterPack instance variable array was
+    * been called before by checking if masterPack instance variable array was
     * already initialized. It does not execute if masterPack was already
     * initialized. note if masterPack[] contains only null values, it contains no
     * objects and therefore must not have been initialized.
